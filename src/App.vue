@@ -22,6 +22,11 @@
       mousemove <br />
       Position {{ x }}:{{ y }}
     </div>
+    <ul>
+      <li v-for="user in users" :key="user.name">
+        {{ `${user.name}'s job is ${user.job}` }}
+      </li>
+    </ul>
   </div>
 </template>
 <script>
@@ -33,6 +38,11 @@ export default {
       isAgeVisible: true,
       x: 0,
       y: 0,
+      users: [
+        { name: "John", job: "React Developer" },
+        { name: "Vali", job: "Vue Developer" },
+        { name: "G'ani", job: "JS Developer" },
+      ],
     };
   },
   methods: {
