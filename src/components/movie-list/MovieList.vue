@@ -1,6 +1,8 @@
 <template>
   <ul class="movie-list list-group">
     <MovieListItem />
+    <MovieListItem />
+    <MovieListItem />
   </ul>
 </template>
 <script>
