@@ -1,8 +1,6 @@
 <template>
   <ul class="movie-list list-group">
-    <MovieListItem />
-    <MovieListItem />
-    <MovieListItem />
+    <MovieListItem v-for="movie in movies" :movi="movie" />
   </ul>
 </template>
 <script>
@@ -11,6 +9,25 @@ import MovieListItem from "../movie-list-item/MovieListItem.vue";
 export default {
   components: {
     MovieListItem,
+  },
+  data() {
+    return {
+      movies: [
+        { title: "Inception", releaseYear: 2010, favourite: false, like: true },
+        {
+          title: "The Matrix",
+          releaseYear: 1999,
+          favourite: false,
+          like: false,
+        },
+        {
+          title: "Interstellar",
+          releaseYear: 2014,
+          favourite: true,
+          like: false,
+        },
+      ],
+    };
   },
 };
 </script>

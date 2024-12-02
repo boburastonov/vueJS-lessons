@@ -1,7 +1,14 @@
 <template>
-  <li class="list-group-item d-flex justify-content-between favourite">
-    <span class="list-group-item-label">Empire of Usman</span>
-    <input class="list-group-item-input" type="number" defaultValue="811" />
+  <li
+    class="list-group-item d-flex justify-content-between"
+    :class="[{ like: movi.like }, { favourite: movi.favourite }]"
+  >
+    <span class="list-group-item-label">{{ movi.title }}</span>
+    <input
+      class="list-group-item-input"
+      type="number"
+      :value="movi.releaseYear"
+    />
 
     <div class="d-flex justify-content-center align-items-center">
       <button class="btn-cookie btn-sm" type="button">
@@ -17,7 +24,14 @@
   </li>
 </template>
 <script>
-export default {};
+export default {
+  props: {
+    movi: {
+      type: Object,
+      required: true,
+    },
+  },
+};
 </script>
 <style scoped>
 .list-group-item {
@@ -85,4 +99,3 @@ export default {};
   color: #ffc107;
 }
 </style>
-
