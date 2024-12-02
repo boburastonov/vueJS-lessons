@@ -1,12 +1,15 @@
 <template>
   <div class="app font-monospace">
     <div class="content">
-      <AppInfo />
+      <AppInfo
+        :allMoviesCount="movies.length"
+        :favouriteMoviesCount="movies.filter((m) => m.favourite).length"
+      />
       <div class="search-panel">
         <SearchPanel />
         <AppFilter />
       </div>
-      <MovieList />
+      <MovieList :movies="movies" />
       <MovieAddForm />
     </div>
   </div>
@@ -24,6 +27,25 @@ export default {
     AppFilter,
     MovieList,
     MovieAddForm,
+  },
+  data() {
+    return {
+      movies: [
+        { title: "Inception", releaseYear: 2010, favourite: false, like: true },
+        {
+          title: "The Matrix",
+          releaseYear: 1999,
+          favourite: false,
+          like: false,
+        },
+        {
+          title: "Interstellar",
+          releaseYear: 2014,
+          favourite: true,
+          like: false,
+        },
+      ],
+    };
   },
 };
 </script>

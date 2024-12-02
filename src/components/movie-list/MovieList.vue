@@ -10,24 +10,11 @@ export default {
   components: {
     MovieListItem,
   },
-  data() {
-    return {
-      movies: [
-        { title: "Inception", releaseYear: 2010, favourite: false, like: true },
-        {
-          title: "The Matrix",
-          releaseYear: 1999,
-          favourite: false,
-          like: false,
-        },
-        {
-          title: "Interstellar",
-          releaseYear: 2014,
-          favourite: true,
-          like: false,
-        },
-      ],
-    };
+  props: {
+    movies: {
+      type: Array,
+      required: true,
+    },
   },
 };
 </script>
