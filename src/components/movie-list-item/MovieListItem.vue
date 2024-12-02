@@ -86,4 +86,3 @@ export default {};
 }
 </style>
 
-//! 7-dars => Movie item component. style
