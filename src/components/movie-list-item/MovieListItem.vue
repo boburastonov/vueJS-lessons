@@ -2,13 +2,10 @@
   <li
     class="list-group-item d-flex justify-content-between"
     :class="[{ like: movi.like }, { favourite: movi.favourite }]"
+    @click="handleLike"
   >
     <span class="list-group-item-label">{{ movi.title }}</span>
-    <input
-      class="list-group-item-input"
-      type="number"
-      :value="movi.viewers"
-    />
+    <input class="list-group-item-input" type="number" :value="movi.viewers" />
 
     <div class="d-flex justify-content-center align-items-center">
       <button class="btn-cookie btn-sm" type="button">
@@ -29,6 +26,11 @@ export default {
     movi: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    handleLike() {
+      this.$emit("handleLike", this.movi.id);
     },
   },
 };
