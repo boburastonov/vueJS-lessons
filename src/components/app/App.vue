@@ -31,18 +31,26 @@ export default {
   data() {
     return {
       movies: [
-        { title: "Inception", viewers: 716, favourite: false, like: true },
+        {
+          title: "Inception",
+          viewers: 716,
+          favourite: false,
+          like: true,
+          id: 1,
+        },
         {
           title: "The Matrix",
           viewers: 719,
           favourite: false,
           like: false,
+          id: 2,
         },
         {
           title: "Interstellar",
           viewers: 713,
           favourite: true,
           like: false,
+          id: 3,
         },
       ],
     };
@@ -51,7 +59,7 @@ export default {
     createMovie(movie) {
       this.movies.push(movie);
     },
-  }
+  },
 };
 </script>
 <style>
