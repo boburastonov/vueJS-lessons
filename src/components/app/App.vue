@@ -10,7 +10,7 @@
         <AppFilter />
       </div>
       <MovieList :movies="movies" />
-      <MovieAddForm />
+      <MovieAddForm @createMovie="createMovie" />
     </div>
   </div>
 </template>
@@ -31,22 +31,27 @@ export default {
   data() {
     return {
       movies: [
-        { title: "Inception", releaseYear: 2010, favourite: false, like: true },
+        { title: "Inception", viewers: 716, favourite: false, like: true },
         {
           title: "The Matrix",
-          releaseYear: 1999,
+          viewers: 719,
           favourite: false,
           like: false,
         },
         {
           title: "Interstellar",
-          releaseYear: 2014,
+          viewers: 713,
           favourite: true,
           like: false,
         },
       ],
     };
   },
+  methods: {
+    createMovie(movie) {
+      this.movies.push(movie);
+    },
+  }
 };
 </script>
 <style>

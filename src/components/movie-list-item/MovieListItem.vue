@@ -7,7 +7,7 @@
     <input
       class="list-group-item-input"
       type="number"
-      :value="movi.releaseYear"
+      :value="movi.viewers"
     />
 
     <div class="d-flex justify-content-center align-items-center">

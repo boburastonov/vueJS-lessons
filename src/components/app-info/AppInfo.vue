@@ -9,7 +9,7 @@
 <script>
 export default {
   props: {
-    allMoviesCount: {
+    allMoviesCount: { 
       type: Number,
       required: true,
     },
