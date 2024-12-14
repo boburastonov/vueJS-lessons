@@ -9,7 +9,7 @@
         <SearchPanel />
         <AppFilter />
       </div>
-      <MovieList :movies="movies" @handleLike="handleLike" />
+      <MovieList :movies="movies" @onToggle="onToggleHandler" />
       <MovieAddForm @createMovie="createMovie" />
     </div>
   </div>
@@ -59,10 +59,10 @@ export default {
     createMovie(movie) {
       this.movies.push(movie);
     },
-    handleLike(id) {
-      this.movies.filter((item) => {
-        if (item.id === id) {
-          item.like = !item.like;
+    onToggleHandler({ id, prop }) {
+      this.movies = this.movies.map((item) => {
+        if (item.id == id) {
+          return { ...item, [prop]: !item[prop] };
         }
         return item;
       });
