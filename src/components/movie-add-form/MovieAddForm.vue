@@ -32,6 +32,7 @@ export default {
   },
   methods: {
     addMovie() {
+      if (!this.title || !this.viewers) return;
       const newMovie = {
         title: this.title,
         viewers: this.viewers,

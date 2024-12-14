@@ -5,6 +5,7 @@
       :movi="movie"
       :key="movie.id"
       @onToggle="$emit('onToggle', $event)"
+      @onDelete="$emit('onDelete', $event)"
     />
   </ul>
 </template>

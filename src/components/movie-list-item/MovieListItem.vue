@@ -19,7 +19,12 @@
         <i class="fas fa-cookie"></i>
       </button>
 
-      <button class="btn-trash btn-sm" type="button">
+      <button
+        class="btn-trash btn-sm"
+        @click="$emit('onDelete', movi.id)"
+        moe
+        type="button"
+      >
         <i class="fas fa-trash"></i>
       </button>
 

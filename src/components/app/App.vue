@@ -9,7 +9,11 @@
         <SearchPanel />
         <AppFilter />
       </div>
-      <MovieList :movies="movies" @onToggle="onToggleHandler" />
+      <MovieList
+        :movies="movies"
+        @onToggle="onToggleHandler"
+        @onDelete="deleteHandler"
+      />
       <MovieAddForm @createMovie="createMovie" />
     </div>
   </div>
@@ -66,6 +70,9 @@ export default {
         }
         return item;
       });
+    },
+    deleteHandler(id) {
+      this.movies = this.movies.filter((item) => item.id !== id);
     },
   },
 };
