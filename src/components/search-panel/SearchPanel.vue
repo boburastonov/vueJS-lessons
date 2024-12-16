@@ -1,6 +1,8 @@
 <template>
   <input
     class="form-control search-input"
+    @input="onChangeHandler"
+    :value="term"
     type="text"
     name="movie-search"
     id="movie-search"
@@ -8,7 +10,25 @@
   />
 </template>
 <script>
-export default {};
+export default {
+  props: {
+    onUpdateTermHandler: {
+      type: Function,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      term: "",
+    };
+  },
+  methods: {
+    onChangeHandler(e) {
+      this.term = e.target.value;
+      this.onUpdateTermHandler(this.term);
+    },
+  },
+};
 </script>
 <style scoped>
 .search-input {
