@@ -7,10 +7,13 @@
       />
       <div class="search-panel">
         <SearchPanel :onUpdateTermHandler="onUpdateTermHandler" />
-        <AppFilter />
+        <AppFilter
+          :onUpdateFilterHandler="onUpdateFilterHandler"
+          :filterName="filter"
+        />
       </div>
       <MovieList
-        :movies="onSearchHandler(movies, term)"
+        :movies="onFilterHandler(onSearchHandler(movies, term), filter)"
         @onToggle="onToggleHandler"
         @onDelete="deleteHandler"
       />
@@ -58,6 +61,7 @@ export default {
         },
       ],
       term: "",
+      filter: "all",
     };
   },
   methods: {
@@ -82,8 +86,21 @@ export default {
         item.title.toLowerCase().includes(term.toLowerCase())
       );
     },
+    onFilterHandler(arr, filter) {
+      switch (filter) {
+        case "popular":
+          return arr.filter((item) => item.like);
+        case "mostViewers":
+          return arr.filter((item) => item.viewers > 713);
+        default:
+          return arr;
+      }
+    },
     onUpdateTermHandler(term) {
       this.term = term;
+    },
+    onUpdateFilterHandler(filter) {
+      this.filter = filter;
     },
   },
 };
