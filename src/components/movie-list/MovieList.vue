@@ -1,5 +1,5 @@
 <template>
-  <ul class="movie-list list-group">
+  <Box class="movie-list list-group">
     <MovieListItem
       v-for="movie in movies"
       :movi="movie"
@@ -7,7 +7,7 @@
       @onToggle="$emit('onToggle', $event)"
       @onDelete="$emit('onDelete', $event)"
     />
-  </ul>
+  </Box>
 </template>
 <script>
 import MovieListItem from "../movie-list-item/MovieListItem.vue";

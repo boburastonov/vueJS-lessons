@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-add-form">
+  <Box class="movie-add-form">
     <h3>Yangi kino qo'shish</h3>
     <form class="add-form d-flex" @submit.prevent>
       <input
@@ -16,11 +16,11 @@
         placeholder="Qancha marotaba ko'rilgan?"
         :value="viewers"
       />
-      <button class="btn btn-outline-dark" @click="addMovie" type="submit">
+      <PrimaryButton class="btn-outline-dark" @click="addMovie" type="submit">
         Qo'shish
-      </button>
+      </PrimaryButton>
     </form>
-  </div>
+  </Box>
 </template>
 <script>
 export default {
