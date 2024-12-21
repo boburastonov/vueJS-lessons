@@ -1,11 +1,8 @@
 <template>
-  <input
-    class="form-control search-input"
+  <Input
+    class="search-input"
     @input="onChangeHandler"
-    :value="term"
-    type="text"
-    name="movie-search"
-    id="movie-search"
+    v-model="term"
     placeholder="Kinolarni qidirish"
   />
 </template>
