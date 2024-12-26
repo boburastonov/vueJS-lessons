@@ -42,6 +42,9 @@ export default {
       this.viewers = "";
     },
   },
+  unmounted() {
+    console.log("Unmounted");
+  },
 };
 </script>
 <style scoped>

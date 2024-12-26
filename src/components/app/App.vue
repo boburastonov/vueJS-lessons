@@ -17,15 +17,16 @@
         @onToggle="onToggleHandler"
         @onDelete="deleteHandler"
       />
-      <MovieAddForm @createMovie="createMovie" />
+      <div v-if="filter === 'all'">Filter all</div>
+      <MovieAddForm @createMovie="createMovie" v-else="filter === 'popular'" />
     </div>
   </div>
 </template>
 <script>
 import AppInfo from "../app-info/AppInfo.vue";
-import SearchPanel from "../search-panel/SearchPanel.vue";
 import AppFilter from "../app-filter/AppFilter.vue";
 import MovieList from "../movie-list/MovieList.vue";
+import SearchPanel from "../search-panel/SearchPanel.vue";
 import MovieAddForm from "../movie-add-form/MovieAddForm.vue";
 export default {
   components: {
@@ -102,6 +103,18 @@ export default {
     onUpdateFilterHandler(filter) {
       this.filter = filter;
     },
+    mountedLog() {
+      console.log("Mounted");
+    },
+    updatedLog() {
+      console.log("Updated");
+    },
+  },
+  mounted() {
+    this.mountedLog();
+  },
+  updated() {
+    this.updatedLog();
   },
 };
 </script>
