@@ -23,6 +23,7 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 import AppInfo from "../app-info/AppInfo.vue";
 import AppFilter from "../app-filter/AppFilter.vue";
 import MovieList from "../movie-list/MovieList.vue";
@@ -103,6 +104,23 @@ export default {
     onUpdateFilterHandler(filter) {
       this.filter = filter;
     },
+    async fetchMovie() {
+      try {
+        const { data } = await axios.get(
+          "https://jsonplaceholder.typicode.com/posts?_limit=10"
+        );
+        const newArr = data.map((item) => ({
+          id: item.id,
+          title: item.title,
+          like: false,
+          favourite: false,
+          viewers: item.id * 100,
+        }));
+        this.movies = newArr;
+      } catch (error) {
+        alert(error.message);
+      }
+    },
     mountedLog() {
       console.log("Mounted");
     },
@@ -111,7 +129,7 @@ export default {
     },
   },
   mounted() {
-    this.mountedLog();
+    this.fetchMovie();
   },
   updated() {
     this.updatedLog();
