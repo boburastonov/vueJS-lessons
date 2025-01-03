@@ -12,13 +12,19 @@
           :filterName="filter"
         />
       </div>
+      <Box v-if="!movies.length && !isLoading">
+        <p class="text-center text-danger fs-3">Kinolar mavjud emas</p>
+      </Box>
+      <Box class="d-flex justify-content-center" v-else-if="isLoading">
+        <Loader />
+      </Box>
       <MovieList
+        v-else
         :movies="onFilterHandler(onSearchHandler(movies, term), filter)"
         @onToggle="onToggleHandler"
         @onDelete="deleteHandler"
       />
-      <div v-if="filter === 'all'">Filter all</div>
-      <MovieAddForm @createMovie="createMovie" v-else="filter === 'popular'" />
+      <MovieAddForm @createMovie="createMovie" />
     </div>
   </div>
 </template>
@@ -39,31 +45,10 @@ export default {
   },
   data() {
     return {
-      movies: [
-        {
-          title: "Inception",
-          viewers: 716,
-          favourite: false,
-          like: true,
-          id: 1,
-        },
-        {
-          title: "The Matrix",
-          viewers: 719,
-          favourite: false,
-          like: false,
-          id: 2,
-        },
-        {
-          title: "Interstellar",
-          viewers: 713,
-          favourite: true,
-          like: false,
-          id: 3,
-        },
-      ],
+      movies: [],
       term: "",
       filter: "all",
+      isLoading: false,
     };
   },
   methods: {
@@ -106,6 +91,7 @@ export default {
     },
     async fetchMovie() {
       try {
+        this.isLoading = true;
         const { data } = await axios.get(
           "https://jsonplaceholder.typicode.com/posts?_limit=10"
         );
@@ -119,6 +105,8 @@ export default {
         this.movies = newArr;
       } catch (error) {
         alert(error.message);
+      } finally {
+        this.isLoading = false;
       }
     },
     mountedLog() {
