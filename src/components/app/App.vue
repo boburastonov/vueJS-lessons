@@ -24,17 +24,27 @@
         @onToggle="onToggleHandler"
         @onDelete="deleteHandler"
       />
+      <Box class="d-flex justify-content-end">
+        <Pagination
+          :totalPages="totalPages"
+          :page="page"
+          @update:page="onPageChange"
+        />
+      </Box>
       <MovieAddForm @createMovie="createMovie" />
     </div>
   </div>
 </template>
+
 <script>
 import axios from "axios";
 import AppInfo from "../app-info/AppInfo.vue";
 import AppFilter from "../app-filter/AppFilter.vue";
 import MovieList from "../movie-list/MovieList.vue";
+import Pagination from "../Pagination/Pagination.vue";
 import SearchPanel from "../search-panel/SearchPanel.vue";
 import MovieAddForm from "../movie-add-form/MovieAddForm.vue";
+
 export default {
   components: {
     AppInfo,
@@ -42,6 +52,7 @@ export default {
     AppFilter,
     MovieList,
     MovieAddForm,
+    Pagination,
   },
   data() {
     return {
@@ -49,6 +60,9 @@ export default {
       term: "",
       filter: "all",
       isLoading: false,
+      limit: 10,
+      page: 1,
+      totalPages: 0,
     };
   },
   methods: {
@@ -57,7 +71,7 @@ export default {
     },
     onToggleHandler({ id, prop }) {
       this.movies = this.movies.map((item) => {
-        if (item.id == id) {
+        if (item.id === id) {
           return { ...item, [prop]: !item[prop] };
         }
         return item;
@@ -68,7 +82,6 @@ export default {
     },
     onSearchHandler(arr, term) {
       if (term.length === 0) return arr;
-
       return arr.filter((item) =>
         item.title.toLowerCase().includes(term.toLowerCase())
       );
@@ -89,19 +102,32 @@ export default {
     onUpdateFilterHandler(filter) {
       this.filter = filter;
     },
+    onPageChange(newPage) {
+      this.page = newPage;
+      this.fetchMovie();
+    },
     async fetchMovie() {
       try {
         this.isLoading = true;
-        const { data } = await axios.get(
-          "https://jsonplaceholder.typicode.com/posts?_limit=10"
+        const response = await axios.get(
+          "https://jsonplaceholder.typicode.com/posts",
+          {
+            params: {
+              _limit: this.limit,
+              _page: this.page,
+            },
+          }
         );
-        const newArr = data.map((item) => ({
+        const newArr = response.data.map((item) => ({
           id: item.id,
           title: item.title,
           like: false,
           favourite: false,
           viewers: item.id * 100,
         }));
+        this.totalPages = Math.ceil(
+          response.headers["x-total-count"] / this.limit
+        );
         this.movies = newArr;
       } catch (error) {
         alert(error.message);
@@ -109,21 +135,18 @@ export default {
         this.isLoading = false;
       }
     },
-    mountedLog() {
-      console.log("Mounted");
-    },
-    updatedLog() {
-      console.log("Updated");
-    },
   },
   mounted() {
     this.fetchMovie();
   },
-  updated() {
-    this.updatedLog();
+  watch: {
+    page() {
+      this.fetchMovie();
+    },
   },
 };
 </script>
+
 <style>
 .app {
   height: 100vh;
