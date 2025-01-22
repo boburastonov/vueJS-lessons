@@ -66,8 +66,16 @@ export default {
     };
   },
   methods: {
-    createMovie(movie) {
-      this.movies.push(movie);
+    async createMovie(movie) {
+      try {
+        const response = await axios.post(
+          "https://jsonplaceholder.typicode.com/posts",
+          movie
+        );
+        this.movies.push(response.data);
+      } catch (error) {
+        alert(error.message);
+      }
     },
     onToggleHandler({ id, prop }) {
       this.movies = this.movies.map((item) => {
@@ -77,8 +85,15 @@ export default {
         return item;
       });
     },
-    deleteHandler(id) {
-      this.movies = this.movies.filter((item) => item.id !== id);
+    async deleteHandler(id) {
+      try {
+        const response = await axios.delete(
+          `https://jsonplaceholder.typicode.com/posts/${id}`
+        );
+        this.movies = this.movies.filter((item) => item.id !== id);
+      } catch (error) {
+        alert(error.message);
+      }
     },
     onSearchHandler(arr, term) {
       if (term.length === 0) return arr;
